@@ -1,6 +1,5 @@
 import React, { useState } from 'react'
-import { Button } from 'react-bootstrap'
-import s from './TodoList.module.css'
+import { Button, NavItem } from 'react-bootstrap'
 import { FontAwesomeIcon } from '@fortawesome/react-fontawesome'
 import {
     faSave,
@@ -9,29 +8,31 @@ import {
     faLock,
     faLockOpen,
 } from '@fortawesome/free-solid-svg-icons'
+import s from './TodoList.module.scss'
 
-function TodoList({ todo, setTodo }) {
+export const TodoList = ({ todo, setTodo }) => {
     const [edit, setEdit] = useState(null)
     const [value, setValue] = useState('')
-    function deleteTodo(id) {
-        let newTodo = [...todo.filter((elem) => elem.id !== id)]
+
+    const deleteTodo = (id) => {
+        const newTodo = todo.filter((elem) => elem.id !== id)
         setTodo(newTodo)
     }
-    function statusTodo(id) {
-        let newTodo = [...todo].filter((elem) => {
-            if (elem.id === id) {
-                elem.status = !elem.status
-            }
-            return elem
-        })
+
+    const toggleStatusTodo = (id) => {
+        const newTodo = todo.map((elem) =>
+            elem.id === id ? { ...elem, status: !elem.status } : elem
+        )
         setTodo(newTodo)
     }
-    function editTodo(id, title) {
+
+    const editTodo = (id, title) => {
         setEdit(id)
         setValue(title)
     }
-    function saveTodo(id) {
-        let newTodo = [...todo].map((elem) => {
+
+    const saveTodo = (id) => {
+        const newTodo = [...todo].map((elem) => {
             if (elem.id === id) {
                 elem.title = value
             }
@@ -40,6 +41,7 @@ function TodoList({ todo, setTodo }) {
         setTodo(newTodo)
         setEdit(null)
     }
+
     return (
         <div>
             {todo.map((elem) => (
@@ -74,7 +76,7 @@ function TodoList({ todo, setTodo }) {
                             <Button
                                 className={s.btn}
                                 variant="light"
-                                onClick={() => statusTodo(elem.id)}
+                                onClick={() => toggleStatusTodo(elem.id)}
                             >
                                 {elem.status ? (
                                     <FontAwesomeIcon icon={faLock} />
@@ -96,5 +98,3 @@ function TodoList({ todo, setTodo }) {
         </div>
     )
 }
-
-export default TodoList

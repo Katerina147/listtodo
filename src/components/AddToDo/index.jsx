@@ -2,20 +2,19 @@ import React, { useState } from 'react'
 import uuid from 'react-uuid'
 import { Row, Col, Button } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
-import s from './AddTodo.module.css'
+import s from './AddTodo.module.scss'
 
-function AddTodo({ todo, setTodo }) {
+export const AddTodo = ({ addTodoClickHandler }) => {
     const [value, setValue] = useState('')
 
-    function saveTodo() {
-        setTodo([
-            ...todo,
-            {
-                id: uuid.v4,
-                title: value,
-                status: true,
-            },
-        ])
+    const saveTodo = () => {
+        if (!value) alert('Enter what do you whant to do')
+        const newTodo = {
+            id: uuid.v4,
+            title: value,
+            status: true,
+        }
+        addTodoClickHandler(newTodo)
         setValue('')
     }
     return (
@@ -26,7 +25,7 @@ function AddTodo({ todo, setTodo }) {
                     placeholder="Enter a task"
                     value={value}
                     onChange={(e) => setValue(e.target.value)}
-                ></Form.Control>
+                />
                 <Button onClick={saveTodo} className={s.btn} variant="light">
                     Save
                 </Button>
@@ -34,5 +33,3 @@ function AddTodo({ todo, setTodo }) {
         </Row>
     )
 }
-
-export default AddTodo
