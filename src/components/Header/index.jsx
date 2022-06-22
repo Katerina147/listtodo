@@ -1,8 +1,8 @@
 import React from 'react'
-import s from './Header.module.css'
 import { Row, Col } from 'react-bootstrap'
+import s from './Header.module.scss'
 
-function Header() {
+export const Header = () => {
     return (
         <Row>
             <Col>
@@ -11,5 +11,3 @@ function Header() {
         </Row>
     )
 }
-
-export default Header
