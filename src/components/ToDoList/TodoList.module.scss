@@ -1,3 +1,5 @@
+@import '../../assets/styles/variables';
+
 .btn {
     margin-left: 12px;
 }
@@ -11,11 +13,11 @@
 }
 
 .listItems:hover {
-    background-color: lightblue;
+    background-color: $mainColor;
     border-radius: 5px;
 }
 
 .close {
-    color: grey;
+    color: $doneTasksColor;
     text-decoration: line-through;
 }

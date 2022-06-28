@@ -1,8 +1,10 @@
+@import '../../assets/styles/variables';
+
 .root {
     height: 80px;
     font-size: 24px;
-    color: white;
-    background: lightblue;
+    color: $headerTextColor;
+    background: $mainColor;
     display: flex;
     align-items: center;
     justify-content: center;
