@@ -4,16 +4,16 @@ export const TODO_LIST = [
     {
         id: nanoid(),
         title: 'Learn React',
-        status: true,
+        status: false,
     },
     {
         id: nanoid(),
         title: 'Learn Redux',
-        status: true,
+        status: false,
     },
     {
         id: nanoid(),
         title: 'Chilling',
-        status: true,
+        status: false,
     },
 ]
