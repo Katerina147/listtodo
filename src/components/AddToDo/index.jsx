@@ -3,20 +3,29 @@ import uuid from 'react-uuid'
 import { Row, Col, Button } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
 import s from './AddTodo.module.scss'
+import { CustomModal } from './Modal'
 
 export const AddTodo = ({ addTodoClickHandler }) => {
     const [value, setValue] = useState('')
+    const [openModal, setOpenModal] = useState(false)
 
     const saveTodo = () => {
-        if (!value) alert('Enter what do you whant to do')
+        if (!value) {
+            setOpenModal(true)
+            return
+        }
         const newTodo = {
             id: uuid.v4,
             title: value,
-            status: true,
+            status: false,
         }
         addTodoClickHandler(newTodo)
         setValue('')
     }
+
+    const handleChangeTodoTitle = (e) => setValue(e.target.value)
+    const handleModalHide = () => setOpenModal(false)
+
     return (
         <Row>
             <Col className={s.addTodoForm}>
@@ -24,12 +33,13 @@ export const AddTodo = ({ addTodoClickHandler }) => {
                     className={s.addTodoForm}
                     placeholder="Enter a task"
                     value={value}
-                    onChange={(e) => setValue(e.target.value)}
+                    onChange={handleChangeTodoTitle}
                 />
                 <Button onClick={saveTodo} className={s.btn} variant="light">
                     Save
                 </Button>
             </Col>
+            <CustomModal openModal={openModal} onHide={handleModalHide} />
         </Row>
     )
 }
