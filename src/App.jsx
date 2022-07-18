@@ -1,20 +1,25 @@
 import { useState } from 'react'
 import { Container } from 'react-bootstrap'
-import { Header, AddTodo, TodoList } from './components'
+import { Header, AddTodo, TodoList, TodoContext } from './components'
 import { TODO_LIST } from './constants'
 import './App.scss'
 
 const App = () => {
-    const [todo, setTodo] = useState(TODO_LIST)
+    const [todoList, setTodoList] = useState(TODO_LIST)
 
-    const addTodoClickHandler = (value) => setTodo([...todo, value])
+    const todoContextValue = {
+        todoList,
+        setTodoList,
+    }
 
     return (
-        <Container>
-            <Header />
-            <AddTodo addTodoClickHandler={addTodoClickHandler} />
-            <TodoList todo={todo} setTodo={setTodo} />
-        </Container>
+        <TodoContext.Provider value={todoContextValue}>
+            <Container>
+                <Header />
+                <AddTodo />
+                <TodoList />
+            </Container>
+        </TodoContext.Provider>
     )
 }
 

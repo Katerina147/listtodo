@@ -4,7 +4,7 @@ import { Modal } from 'react-bootstrap'
 
 const { Header, Title, Body } = Modal
 
-export const CustomModal = ({ openModal, onHide }) => {
+export const CustomModal = ({ openModal, onHide, titleLabel, bodyLabel }) => {
     return (
         <Modal
             size="sm"
@@ -13,9 +13,9 @@ export const CustomModal = ({ openModal, onHide }) => {
             aria-labelledby="example-modal-sizes-title-sm"
         >
             <Header closeButton>
-                <Title id="example-modal-sizes-title-sm">Attention!</Title>
+                <Title id="example-modal-sizes-title-sm">{titleLabel}</Title>
             </Header>
-            <Body>Enter a task</Body>
+            <Body>{bodyLabel}</Body>
         </Modal>
     )
 }
