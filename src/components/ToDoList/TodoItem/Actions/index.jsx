@@ -11,7 +11,7 @@ import s from './Actions.module.scss'
 export const TodoActions = ({
     deleteTodo,
     toggleStatusTodo,
-    editTodo,
+    handleEditTodo,
     elemStatus,
 }) => {
     return (
@@ -22,7 +22,11 @@ export const TodoActions = ({
                 onClick={toggleStatusTodo}
                 icon={elemStatus ? faLock : faUnlock}
             />
-            <ButtonIcon className={s.btn} onClick={editTodo} icon={faFilePen} />
+            <ButtonIcon
+                className={s.btn}
+                onClick={handleEditTodo}
+                icon={faFilePen}
+            />
         </div>
     )
 }
