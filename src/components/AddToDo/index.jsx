@@ -1,13 +1,17 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import uuid from 'react-uuid'
 import { Row, Col, Button } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
+import { CustomModal } from '../shared'
+import { TodoContext } from '../../context'
 import s from './AddTodo.module.scss'
-import { CustomModal } from './Modal'
 
-export const AddTodo = ({ addTodoClickHandler }) => {
+export const AddTodo = () => {
     const [value, setValue] = useState('')
     const [openModal, setOpenModal] = useState(false)
+
+    const { todoList, setTodoList } = useContext(TodoContext)
+    const addTodoClickHandler = (value) => setTodoList([...todoList, value])
 
     const saveTodo = () => {
         if (!value) {
@@ -39,7 +43,12 @@ export const AddTodo = ({ addTodoClickHandler }) => {
                     Save
                 </Button>
             </Col>
-            <CustomModal openModal={openModal} onHide={handleModalHide} />
+            <CustomModal
+                openModal={openModal}
+                onHide={handleModalHide}
+                content="Enter a task"
+                title="Attention!"
+            />
         </Row>
     )
 }
