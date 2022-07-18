@@ -1,34 +1,38 @@
-import React, { useState } from 'react'
+import React, { useContext, useState } from 'react'
 import Form from 'react-bootstrap/Form'
 import cn from 'classnames'
 import { ButtonIcon } from '../../shared'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
 import { TodoActions } from './Actions'
 import s from './TodoItem.module.scss'
+import { TodoContext } from '../../TodoContext'
 
-export const TodoItem = ({
-    data,
-    handleSave,
-    handleToggleStatus,
-    handleDeleteTodo,
-}) => {
+export const TodoItem = ({ data }) => {
     const { title, id, status } = data
-
     const [isEdit, setIsEdit] = useState(false)
     const [value, setValue] = useState(title)
 
-    const onDelete = () => {
-        handleDeleteTodo(id)
+    const { todoList, setTodoList } = useContext(TodoContext)
+
+    const onDeleteClickHandler = () => {
+        const newTodos = todoList.filter((item) => item.id !== id)
+        setTodoList(newTodos)
     }
 
-    const onToggle = () => {
-        handleToggleStatus(id)
+    const handleToggleStatus = () => {
+        const newTodos = todoList.map((item) =>
+            item.id === id ? { ...item, status: !item.status } : item
+        )
+        setTodoList(newTodos)
     }
 
     const handleClickEdit = () => setIsEdit(true)
 
-    const onSave = () => {
-        handleSave(id, value)
+    const onSaveClickHandler = () => {
+        const newTodos = todoList.map((item) =>
+            item.id === id ? { ...item, title: value } : item
+        )
+        setTodoList(newTodos)
         setIsEdit(false)
     }
 
@@ -38,7 +42,7 @@ export const TodoItem = ({
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
             />
-            <ButtonIcon onClick={onSave} icon={faSave} />
+            <ButtonIcon onClick={onSaveClickHandler} icon={faSave} />
         </>
     )
 
@@ -46,8 +50,8 @@ export const TodoItem = ({
         <>
             <span className={cn('', { [s.close]: status })}>{title}</span>
             <TodoActions
-                deleteTodo={onDelete}
-                toggleStatusTodo={onToggle}
+                deleteTodo={onDeleteClickHandler}
+                toggleStatusTodo={handleToggleStatus}
                 editTodo={handleClickEdit}
                 elemStatus={!status}
             />
