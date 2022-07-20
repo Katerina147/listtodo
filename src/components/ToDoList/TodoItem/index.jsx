@@ -2,6 +2,7 @@ import React, { useState } from 'react'
 import s from './TodoItem.module.scss'
 import { EditableRenderer } from './EditableRenderer'
 import { DefaultRenderer } from './DefaultRenderer'
+import PropTypes from 'prop-types'
 
 export const TodoItem = ({ data }) => {
     const [isEdit, setIsEdit] = useState(false)
@@ -22,4 +23,12 @@ export const TodoItem = ({ data }) => {
             )}
         </div>
     )
+}
+
+TodoItem.propTypes = {
+    data: PropTypes.shape({
+        id: PropTypes.string.isRequired,
+        title: PropTypes.string.isRequired,
+        status: PropTypes.bool.isRequired,
+    }),
 }
