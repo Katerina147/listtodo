@@ -1,8 +1,8 @@
 import React, { useContext, useState } from 'react'
-import uuid from 'react-uuid'
-import { Row, Col, Button } from 'react-bootstrap'
+import { nanoid } from 'nanoid'
+import { Row, Col } from 'react-bootstrap'
 import Form from 'react-bootstrap/Form'
-import { CustomModal } from '../shared'
+import { ButtonDefault, CustomModal } from '../shared'
 import { TodoContext } from '../../context'
 import s from './AddTodo.module.scss'
 
@@ -19,7 +19,7 @@ export const AddTodo = () => {
             return
         }
         const newTodo = {
-            id: uuid.v4,
+            id: nanoid(),
             title: value,
             status: false,
         }
@@ -39,14 +39,17 @@ export const AddTodo = () => {
                     value={value}
                     onChange={handleChangeTodoTitle}
                 />
-                <Button onClick={saveTodo} className={s.btn} variant="light">
-                    Save
-                </Button>
+                <ButtonDefault
+                    onClick={saveTodo}
+                    className={s.btn}
+                    variant="light"
+                    label="Save"
+                />
             </Col>
             <CustomModal
                 openModal={openModal}
                 onHide={handleModalHide}
-                content="Enter a task"
+                content={<span>Enter a task</span>}
                 title="Attention!"
             />
         </Row>

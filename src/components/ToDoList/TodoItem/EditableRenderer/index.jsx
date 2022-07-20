@@ -3,6 +3,7 @@ import Form from 'react-bootstrap/Form'
 import { TodoContext } from '../../../../context'
 import { ButtonIcon } from '../../../shared'
 import { faSave } from '@fortawesome/free-solid-svg-icons'
+import PropTypes from 'prop-types'
 
 export const EditableRenderer = ({ id, title, onSave }) => {
     const [value, setValue] = useState(title)
@@ -25,4 +26,10 @@ export const EditableRenderer = ({ id, title, onSave }) => {
             <ButtonIcon onClick={onSaveClickHandler} icon={faSave} />
         </>
     )
+}
+
+EditableRenderer.propTypes = {
+    id: PropTypes.string.isRequired,
+    title: PropTypes.string.isRequired,
+    onSave: PropTypes.func.isRequired,
 }
