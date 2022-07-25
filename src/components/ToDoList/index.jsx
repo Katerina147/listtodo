@@ -1,13 +1,15 @@
-import React from 'react'
-import { TodoContext } from '../../context'
-import { TodoItem } from './TodoItem'
+import React from 'react';
+import { useSelector } from 'react-redux';
+import { getTodosListSelector } from '../../store/todo-service/selectors';
+import { TodoItem } from './TodoItem';
 
 export const TodoList = () => {
+    const list = useSelector(getTodosListSelector);
     return (
-        <TodoContext.Consumer>
-            {({ todoList }) =>
-                todoList.map((item) => <TodoItem key={item.id} data={item} />)
-            }
-        </TodoContext.Consumer>
-    )
-}
+        <>
+            {list.map((item) => (
+                <TodoItem key={item.id} data={item} />
+            ))}
+        </>
+    );
+};
