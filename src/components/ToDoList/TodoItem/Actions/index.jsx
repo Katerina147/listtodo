@@ -1,35 +1,35 @@
-import React, { useContext } from 'react'
-import { ButtonIcon } from '../../../shared'
+import React from 'react';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
 import {
     faTrashCan,
     faFilePen,
     faLock,
     faUnlock,
-} from '@fortawesome/free-solid-svg-icons'
-import PropTypes from 'prop-types'
-import s from './Actions.module.scss'
-import { TodoContext } from '../../../../context'
+} from '@fortawesome/free-solid-svg-icons';
+import {
+    toggleTodoStatus,
+    deleteTodo,
+} from '../../../../store/todo-service/actions';
+import { ButtonIcon } from '../../../shared';
+import s from './Actions.module.scss';
 
 export const TodoActions = ({ id, status, onEdit }) => {
-    const { todoList, setTodoList } = useContext(TodoContext)
+    const dispatch = useDispatch();
 
-    const onDeleteClickHandler = () => {
-        const newTodos = todoList.filter((item) => item.id !== id)
-        setTodoList(newTodos)
-    }
+    const handleClickDelete = () => {
+        dispatch(deleteTodo(id));
+    };
 
     const handleToggleStatus = () => {
-        const newTodos = todoList.map((item) =>
-            item.id === id ? { ...item, status: !item.status } : item
-        )
-        setTodoList(newTodos)
-    }
+        dispatch(toggleTodoStatus(id));
+    };
 
-    const handleClickEdit = () => onEdit()
+    const handleClickEdit = () => onEdit();
 
     return (
         <div>
-            <ButtonIcon onClick={onDeleteClickHandler} icon={faTrashCan} />
+            <ButtonIcon onClick={handleClickDelete} icon={faTrashCan} />
             <ButtonIcon
                 className={s.btn}
                 onClick={handleToggleStatus}
@@ -41,11 +41,11 @@ export const TodoActions = ({ id, status, onEdit }) => {
                 icon={faFilePen}
             />
         </div>
-    )
-}
+    );
+};
 
 TodoActions.propTypes = {
     id: PropTypes.string.isRequired,
     status: PropTypes.bool.isRequired,
     onEdit: PropTypes.func.isRequired,
-}
+};
