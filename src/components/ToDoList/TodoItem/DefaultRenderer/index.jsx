@@ -1,18 +1,18 @@
-import React from 'react'
-import cn from 'classnames'
-import { TodoActions } from '../Actions'
-import PropTypes from 'prop-types'
-import s from '../TodoItem.module.scss'
+import React from 'react';
+import PropTypes from 'prop-types';
+import cn from 'classnames';
+import { TodoActions } from '../Actions';
+import s from '../TodoItem.module.scss';
 
 export const DefaultRenderer = ({ data, onEdit }) => {
-    const { title, id, status } = data
+    const { title, id, status } = data;
     return (
         <>
             <span className={cn({ [s.close]: status })}>{title}</span>
             <TodoActions id={id} status={status} onEdit={onEdit} />
         </>
-    )
-}
+    );
+};
 
 DefaultRenderer.propTypes = {
     data: PropTypes.shape({
@@ -21,4 +21,4 @@ DefaultRenderer.propTypes = {
         status: PropTypes.bool.isRequired,
     }),
     onEdit: PropTypes.func.isRequired,
-}
+};

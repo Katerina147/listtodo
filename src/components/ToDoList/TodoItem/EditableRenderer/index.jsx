@@ -1,21 +1,20 @@
-import React, { useContext, useState } from 'react'
-import Form from 'react-bootstrap/Form'
-import { TodoContext } from '../../../../context'
-import { ButtonIcon } from '../../../shared'
-import { faSave } from '@fortawesome/free-solid-svg-icons'
-import PropTypes from 'prop-types'
+import React, { useState } from 'react';
+import Form from 'react-bootstrap/Form';
+import { useDispatch } from 'react-redux';
+import PropTypes from 'prop-types';
+import { editTodo } from '../../../../store/todo-service/actions';
+import { ButtonIcon } from '../../../shared';
+import { faSave } from '@fortawesome/free-solid-svg-icons';
 
 export const EditableRenderer = ({ id, title, onSave }) => {
-    const [value, setValue] = useState(title)
-    const { todoList, setTodoList } = useContext(TodoContext)
+    const dispatch = useDispatch();
 
-    const onSaveClickHandler = () => {
-        const newTodos = todoList.map((item) =>
-            item.id === id ? { ...item, title: value } : item
-        )
-        setTodoList(newTodos)
-        onSave()
-    }
+    const [value, setValue] = useState(title);
+
+    const handleClickSave = () => {
+        dispatch(editTodo(id, value));
+        onSave();
+    };
 
     return (
         <>
@@ -23,13 +22,13 @@ export const EditableRenderer = ({ id, title, onSave }) => {
                 value={value}
                 onChange={(e) => setValue(e.target.value)}
             />
-            <ButtonIcon onClick={onSaveClickHandler} icon={faSave} />
+            <ButtonIcon onClick={handleClickSave} icon={faSave} />
         </>
-    )
-}
+    );
+};
 
 EditableRenderer.propTypes = {
     id: PropTypes.string.isRequired,
     title: PropTypes.string.isRequired,
     onSave: PropTypes.func.isRequired,
-}
+};

@@ -1,34 +1,28 @@
-import React, { useContext, useState } from 'react'
-import { nanoid } from 'nanoid'
-import { Row, Col } from 'react-bootstrap'
-import Form from 'react-bootstrap/Form'
-import { ButtonDefault, CustomModal } from '../shared'
-import { TodoContext } from '../../context'
-import s from './AddTodo.module.scss'
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
+import { Row, Col } from 'react-bootstrap';
+import Form from 'react-bootstrap/Form';
+import { ButtonDefault, CustomModal } from '../shared';
+import { addTodo } from '../../store/todo-service/actions';
+import s from './AddTodo.module.scss';
 
 export const AddTodo = () => {
-    const [value, setValue] = useState('')
-    const [openModal, setOpenModal] = useState(false)
+    const dispatch = useDispatch();
 
-    const { todoList, setTodoList } = useContext(TodoContext)
-    const addTodoClickHandler = (value) => setTodoList([...todoList, value])
+    const [value, setValue] = useState('');
+    const [openModal, setOpenModal] = useState(false);
 
     const saveTodo = () => {
         if (!value) {
-            setOpenModal(true)
-            return
+            setOpenModal(true);
+            return;
         }
-        const newTodo = {
-            id: nanoid(),
-            title: value,
-            status: false,
-        }
-        addTodoClickHandler(newTodo)
-        setValue('')
-    }
+        dispatch(addTodo(value));
+        setValue('');
+    };
 
-    const handleChangeTodoTitle = (e) => setValue(e.target.value)
-    const handleModalHide = () => setOpenModal(false)
+    const handleChangeTodoTitle = (e) => setValue(e.target.value);
+    const handleModalHide = () => setOpenModal(false);
 
     return (
         <Row>
@@ -53,5 +47,5 @@ export const AddTodo = () => {
                 title="Attention!"
             />
         </Row>
-    )
-}
+    );
+};
