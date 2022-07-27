@@ -1,21 +1,19 @@
-.btn {
-    margin-left: 12px;
-}
+@import '../../../assets/styles/variables';
 
-.listItems {
+.listItem {
     display: flex;
     justify-content: space-between;
     flex-direction: row;
     margin-top: 12px;
     padding: 5px;
-}
 
-.listItems:hover {
-    background-color: lightblue;
-    border-radius: 5px;
+    &:hover {
+        background-color: $mainColor;
+        border-radius: 5px;
+    }
 }
 
 .close {
-    color: grey;
+    color: $doneTasksColor;
     text-decoration: line-through;
 }
