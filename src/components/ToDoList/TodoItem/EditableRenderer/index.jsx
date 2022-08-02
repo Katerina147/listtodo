@@ -2,7 +2,7 @@ import React, { useState } from 'react';
 import Form from 'react-bootstrap/Form';
 import { useDispatch } from 'react-redux';
 import PropTypes from 'prop-types';
-import { editTodo } from '../../../../store/todo-service/actions';
+import { updateLoadTodo } from '../../../../store/todo-service/actions';
 import { ButtonIcon } from '../../../shared';
 import { faSave } from '@fortawesome/free-solid-svg-icons';
 
@@ -12,7 +12,7 @@ export const EditableRenderer = ({ id, title, onSave }) => {
     const [value, setValue] = useState(title);
 
     const handleClickSave = () => {
-        dispatch(editTodo(id, value));
+        dispatch(updateLoadTodo(id, value));
         onSave();
     };
 

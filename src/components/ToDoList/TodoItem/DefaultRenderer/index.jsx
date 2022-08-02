@@ -5,20 +5,20 @@ import { TodoActions } from '../Actions';
 import s from '../TodoItem.module.scss';
 
 export const DefaultRenderer = ({ data, onEdit }) => {
-    const { title, id, status } = data;
+    const { title, id, completed } = data;
     return (
         <>
-            <span className={cn({ [s.close]: status })}>{title}</span>
-            <TodoActions id={id} status={status} onEdit={onEdit} />
+            <span className={cn({ [s.close]: completed })}>{title}</span>
+            <TodoActions id={id} completed={completed} onEdit={onEdit} />
         </>
     );
 };
 
 DefaultRenderer.propTypes = {
     data: PropTypes.shape({
-        id: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
-        status: PropTypes.bool.isRequired,
+        completed: PropTypes.bool.isRequired,
     }),
     onEdit: PropTypes.func.isRequired,
 };
