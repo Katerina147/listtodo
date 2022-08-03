@@ -8,13 +8,13 @@ import {
     faUnlock,
 } from '@fortawesome/free-solid-svg-icons';
 import {
-    toggleTodoStatus,
+    toogleStatusTodo,
     deleteTodo,
 } from '../../../../store/todo-service/actions';
 import { ButtonIcon } from '../../../shared';
 import s from './Actions.module.scss';
 
-export const TodoActions = ({ id, status, onEdit }) => {
+export const TodoActions = ({ id, completed, onEdit }) => {
     const dispatch = useDispatch();
 
     const handleClickDelete = () => {
@@ -22,7 +22,7 @@ export const TodoActions = ({ id, status, onEdit }) => {
     };
 
     const handleToggleStatus = () => {
-        dispatch(toggleTodoStatus(id));
+        dispatch(toogleStatusTodo(id, !completed));
     };
 
     const handleClickEdit = () => onEdit();
@@ -33,7 +33,7 @@ export const TodoActions = ({ id, status, onEdit }) => {
             <ButtonIcon
                 className={s.btn}
                 onClick={handleToggleStatus}
-                icon={!status ? faLock : faUnlock}
+                icon={!completed ? faLock : faUnlock}
             />
             <ButtonIcon
                 className={s.btn}
@@ -45,7 +45,7 @@ export const TodoActions = ({ id, status, onEdit }) => {
 };
 
 TodoActions.propTypes = {
-    id: PropTypes.string.isRequired,
-    status: PropTypes.bool.isRequired,
+    id: PropTypes.number.isRequired,
+    completed: PropTypes.bool.isRequired,
     onEdit: PropTypes.func.isRequired,
 };

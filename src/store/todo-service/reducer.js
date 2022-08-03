@@ -1,9 +1,8 @@
 import { ACTIONS } from './actions';
-import { TODO_LIST } from '../../constants';
 
 const initialState = {
-    list: TODO_LIST,
-    isloading: false,
+    list: [],
+    isLoading: false,
 };
 
 const todoReducer = (state = initialState, action) => {
@@ -20,8 +19,8 @@ const todoReducer = (state = initialState, action) => {
             return {
                 ...state,
                 list: state.list.map((item) =>
-                    item.id === payload
-                        ? { ...item, status: !item.status }
+                    item.id === payload.id
+                        ? { ...item, completed: payload.completed }
                         : item
                 ),
             };
@@ -41,6 +40,15 @@ const todoReducer = (state = initialState, action) => {
                         : item
                 ),
             };
+
+        case ACTIONS.GET_TODOS:
+            return {
+                ...state,
+                list: [...state.list, ...payload.slice(0, 5)],
+            };
+
+        case ACTIONS.SET_LOADING:
+            return { ...state, isLoading: payload };
 
         default:
             return state;

@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
+import PropTypes from 'prop-types';
 import { EditableRenderer } from './EditableRenderer';
 import { DefaultRenderer } from './DefaultRenderer';
-import PropTypes from 'prop-types';
 import s from './TodoItem.module.scss';
 
 export const TodoItem = ({ data }) => {
@@ -27,8 +27,8 @@ export const TodoItem = ({ data }) => {
 
 TodoItem.propTypes = {
     data: PropTypes.shape({
-        id: PropTypes.string.isRequired,
+        id: PropTypes.number.isRequired,
         title: PropTypes.string.isRequired,
-        status: PropTypes.bool.isRequired,
+        status: PropTypes.bool,
     }),
 };

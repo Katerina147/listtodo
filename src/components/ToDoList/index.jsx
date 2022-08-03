@@ -6,6 +6,7 @@ import s from './TodoList.module.scss';
 
 export const TodoList = () => {
     const list = useSelector(getTodosListSelector);
+
     return (
         <div className={s.todoList}>
             {list.map((item) => (
